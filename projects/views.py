@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Project
+from .forms import CreateNewForm
 
 class PostListView(ListView):
   
@@ -17,6 +18,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(CreateView):
   model = Project
+  form_class = CreateNewForm
   template_name = 'projects/new_post.html'
 
  
