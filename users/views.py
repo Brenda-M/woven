@@ -1,8 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.contrib.auth.models import User
+
+#authentication
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import UserRegisterForm,UserUpdateForm, ProfileUpdateForm
+
+#views
+from django.views.generic import DetailView
+
+#models
+from django.contrib.auth.models import User
+
 
 def register(request):
 
@@ -19,11 +28,11 @@ def register(request):
   return render (request, 'users/register.html', {'form':form})
 
 @login_required
-def profile(request, username):
-  username = User.objects.filter(username=username)
+def profile(request):
+
 
   if request.method == 'POST':
-    u_form = UserUpdateForm(request.POST, instance=request.user)
+    u_form = UserUpdateForm(request.POST, instance=request.user.username)
     p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
     if u_form.is_valid and p_form.is_valid():
       u_form.save()

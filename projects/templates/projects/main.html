@@ -3,6 +3,7 @@
 {% block content %}
   {% for project in projects %}
     <div class="card" style="width: 18rem;">
+      <a href="{% url 'post-detail' project.id %}">View site</a>
       <img src="{{ project.image.url }}" alt="" width="300" height="300" class="img-fluid">
     </div>
   {% endfor %}

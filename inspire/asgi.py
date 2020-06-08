@@ -1,5 +1,5 @@
 """
-ASGI config for woven project.
+ASGI config for inspire project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

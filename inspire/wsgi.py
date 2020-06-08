@@ -1,5 +1,5 @@
 """
-WSGI config for woven project.
+WSGI config for inspire project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
