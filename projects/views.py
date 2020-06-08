@@ -4,15 +4,16 @@ from django.views.generic import ListView, DetailView
 from .models import Project
 
 class PostListView(ListView):
-  projects = Project.objects.all()
+  
   model = Project
-  template_name = 'projects/main.html'
+  template_name = 'projects/main.html' #template convention is <app>/<model>_<viewtype>.html
   context_object_name = 'projects'
   ordering = ['-id']
 
 class PostDetailView(DetailView):
   model = Project
   template_name = 'projects/post_detail.html'
+  context_object_name = 'project'
  
 
 
