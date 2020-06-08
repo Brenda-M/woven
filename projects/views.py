@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Project
 
 class PostListView(ListView):
@@ -14,6 +14,11 @@ class PostDetailView(DetailView):
   model = Project
   template_name = 'projects/post_detail.html'
   context_object_name = 'project'
+
+class PostCreateView(CreateView):
+  model = Project
+  template_name = 'projects/new_post.html'
+
  
 
 
