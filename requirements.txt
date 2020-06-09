@@ -9,7 +9,7 @@ click==7.1.2
 colorama==0.4.3
 colored==1.4.2
 distlib==0.3.0
-Django==3.0.6
+Django==3.0.7
 django-bootstrap4==2.0.1
 dnspython==1.16.0
 dominate==2.5.1
