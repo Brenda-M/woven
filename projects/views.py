@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Project
 from .forms import CreateNewForm
+from .permissions import IsAdminorReadOnly
 
 class PostListView(ListView):
   
@@ -30,6 +31,8 @@ class PostCreateView(CreateView):
     return super().form_valid(form)
 
 class ProjectList(APIView):
+  
+  
   def get(self, request, format=None):
     all_projects = Project.objects.all()
     serializers = ProjectSerializer(all_projects, many=True)
@@ -41,6 +44,10 @@ class ProjectList(APIView):
       serializers.save()
       return Response(serializers.data, status=status.HTTP_201_CREATED)
     return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+  permission_classes = (IsAdminorReadOnly,)
+  
+  
   
 
 
