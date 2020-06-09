@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .serializers import ProfileSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import viewsets
+
 
 #authentication
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -11,6 +16,7 @@ from django.views.generic import DetailView
 
 #models
 from django.contrib.auth.models import User
+from .models import Profile
 
 
 def register(request):
@@ -49,4 +55,11 @@ def profile(request):
   }
 
   return render(request, 'users/profile.html', context)
+
+class ProfileList(APIView):
+  def get(self, request, format=None):
+    all_profile = Profile.objects.all()
+    serializers = ProfileSerializer(all_profile, many=True, context={'request': request})
+    return Response(serializers.data)
+  
 

@@ -17,6 +17,14 @@ class Profile(models.Model):
 
   #resizing images..not the most efficient
   
+  def save(self, *args, **kwargs):
+    super(Profile, self).save(*args, **kwargs)
+
+    img = Image.open(self.prof_pic.path)
+    if img.height> 300 or img.width > 300:
+      output_size = (300, 300)
+      img.thumbnail(output_size)
+      img.save(self.prof_pic.path)
 
   
 # the profile model has a one to one relationship with the users model. That is, one user can have only one profile and one profile can be assoiciated to only one user. This means we can access a profile associated with a user directly from the user. e.g >>> from django.contrib.auth.models import User >>> user = User.objects.filter(username='testUser').first() >>> user.profile output - <Profile: testUser Profile>. To get the users info we can string the initial command even further. e.g user.profile.prof_pic output -<ImageFieldFile: default.jpg>

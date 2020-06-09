@@ -2,17 +2,14 @@
 {% load bootstrap4 %}
 {%  block content %}
 <div class="container">
-  <form action="{% url 'register'%}" method="POST">
+  <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Register</legend>
+      <legend class="border-bottom mb-4">Add Project</legend>
       {% bootstrap_form form layout='inline' %} 
     </fieldset>
     <div class="form-group">
       <button class="btn btn-outline-info" type="submit">Sign up</button>
-    </div>
-    <div class="border-bottom pt-3">
-      <small>Already Have an Account?<a href="{% url 'login'%}" class="ml-2">Log in</a></small>
     </div>
   </form>
 </div>

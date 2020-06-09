@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import viewsets
 from .serializers import ProjectSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Project
 from .forms import CreateNewForm
@@ -27,9 +29,14 @@ class PostCreateView(CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-class ProjectViewSet(viewsets.ModelViewSet):
-  queryset = Project.objects.all().order_by('- created_at')
-  serializer_class = ProjectSerializer
+class ProjectList(APIView):
+  def get(self, request, format=None):
+    all_projects = Project.objects.all()
+    serializers = ProjectSerializer(all_projects, many=True)
+    return Response(serializers.data)
+  
+
+
 
 
 

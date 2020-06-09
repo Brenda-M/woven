@@ -20,6 +20,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'bootstrap4',
+    'rest_framework',
     'projects.apps.ProjectsConfig',
     'users.apps.UsersConfig',
     'django.contrib.admin',
@@ -92,6 +93,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
