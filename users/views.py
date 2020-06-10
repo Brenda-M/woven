@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .serializers import ProfileSerializer
+from projects.permissions import IsAdminorReadOnly
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-
 
 #authentication
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -18,25 +18,22 @@ from django.views.generic import DetailView
 from django.contrib.auth.models import User
 from .models import Profile
 
-
 def register(request):
-
   if request.method == 'POST':
     form = UserRegisterForm(request.POST) #we create a form that has the request.post data
     if form.is_valid():
       form.save()
       username = form.cleaned_data.get('username')
-      messages.success(request, f'Account created for {username}')
+      messages.success(request, f'Account created for { username}')
       return redirect('login')
-  else:
-    form = UserRegisterForm()
 
-  return render (request, 'users/register.html', {'form':form})
+  else: 
+    form = UserRegisterForm()
+  return render(request, 'users/register.html', {'form': form})
+
 
 @login_required
 def profile(request):
-
-
   if request.method == 'POST':
     u_form = UserUpdateForm(request.POST, instance=request.user.username)
     p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -57,6 +54,7 @@ def profile(request):
   return render(request, 'users/profile.html', context)
 
 class ProfileList(APIView):
+  permission_classes =(IsAdminorReadOnly,)
   def get(self, request, format=None):
     all_profile = Profile.objects.all()
     serializers = ProfileSerializer(all_profile, many=True, context={'request': request})

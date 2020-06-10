@@ -2,13 +2,16 @@
 
 {% block content %}
 <div class="container">
-  <div class="card" style="width: 18rem;">
-    <img src="{{ project.image.url }}" alt="" width="600" height="600" class="img-fluid">
-  </div>
-  <div class="details">
-    <p>{{ project.publisher }}</p>
-    <p>{{ project.description }}</p>
-    <span>Added on: {{ project.created_at  }}  </span>
+  <div class="details text-center">
+    <img src="{{ project.image.url }}" alt="" width="730" height="420" class="img-fluid">
+    <div class="more-details">
+      <p>{{ project.publisher }}</p>
+      <p>{{ project.description }}</p>
+      <span>Added on: {{ project.created_at  }}  </span>
+    </div>
+    <form action="">
+      {{ form_class  }}
+    </form>
   </div>
 </div>
 {% endblock %}

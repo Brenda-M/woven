@@ -69,7 +69,7 @@ WSGI_APPLICATION = 'inspire.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'awwards',
+        'NAME': 'awwwardsclone',
         'USER': 'postgres',
         'PASSWORD':'Bm19952810'
     }

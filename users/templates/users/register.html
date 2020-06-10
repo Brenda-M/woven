@@ -1,19 +1,26 @@
 {% extends 'projects/base.html'%}
 {% load bootstrap4 %}
-{%  block content %}
-<div class="container">
-  <form action="{% url 'register'%}" method="POST">
-    {% csrf_token %}
-    <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Register</legend>
-      {% bootstrap_form form layout='inline' %} 
-    </fieldset>
-    <div class="form-group">
-      <button class="btn btn-outline-info" type="submit">Sign up</button>
+{% load static %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <div class="form-wrapper">
+ 
+          <form action="" method="POST">
+            {% csrf_token %}
+   
+            {% bootstrap_form form layout='inline' %}
+            <button type="submit" class="form-btn"> Sign up</button>
+          </form>
+    
+        <div class="sign-up">
+          Have an Account? <a class="ml-2" href="{% url 'login'%}"> Log in</a>
+        </div>
+      </div>
+      </div>
+      <div class="col-md-3"></div>
     </div>
-    <div class="border-bottom pt-3">
-      <small>Already Have an Account?<a href="{% url 'login'%}" class="ml-2">Log in</a></small>
-    </div>
-  </form>
-</div>
+  </div>
 {% endblock %}

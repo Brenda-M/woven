@@ -6,11 +6,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Project
-from .forms import CreateNewForm
+from .forms import CreateNewForm, RatingForm
 from .permissions import IsAdminorReadOnly
 
 class PostListView(ListView):
-  
+
   model = Project
   template_name = 'projects/main.html' #template convention is <app>/<model>_<viewtype>.html
   context_object_name = 'projects'
@@ -18,8 +18,10 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
   model = Project
+  form_class = RatingForm
   template_name = 'projects/post_detail.html'
   context_object_name = 'project'
+
 
 class PostCreateView(CreateView):
   model = Project
@@ -27,7 +29,7 @@ class PostCreateView(CreateView):
   template_name = 'projects/new_post.html'
 
   def form_valid(self, form):
-    form.instance.user = self.request.user
+    form.instance.publisher = self.request.user
     return super().form_valid(form)
 
 class ProjectList(APIView):
