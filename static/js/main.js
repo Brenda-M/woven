@@ -6,10 +6,10 @@ $(document).ready(function(){
         type: 'GET',
         url: `/api/v1/projects/${projectId}/ratings/`,
         success: function (data) {
-            alert(data);
+            // alert(data);
         },
         error: function (data) {
-            alert('An error occurred.');
+            // alert('An error occurred.');
         },
     });
     
@@ -28,7 +28,7 @@ $(document).ready(function(){
     
             },
             error: function (data) {
-                alert('An error occurred.');
+                // alert('An error occurred.');
             },
         });
     });
