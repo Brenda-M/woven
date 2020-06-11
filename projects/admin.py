@@ -1,10 +1,8 @@
 from django.contrib import admin
-from .models import Project, Tag
+from .models import Project, Rating
 
 
-class ProjectAdmin(admin.ModelAdmin):
-  filter_horizontal =('tag',)
 
 
-admin.site.register(Project, ProjectAdmin)
-admin.site.register(Tag)
+admin.site.register(Project)
+admin.site.register(Rating)

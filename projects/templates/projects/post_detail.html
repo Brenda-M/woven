@@ -2,16 +2,99 @@
 
 {% block content %}
 <div class="container">
-  <div class="details text-center">
-    <img src="{{ project.image.url }}" alt="" width="730" height="420" class="img-fluid">
-    <div class="more-details">
-      <p>{{ project.publisher }}</p>
-      <p>{{ project.description }}</p>
-      <span>Added on: {{ project.created_at  }}  </span>
+  <div class="details">
+    <div class="proj-img text-center">
+      <img src="{{ project.image.url }}" alt="" width="730" height="420" class="img-fluid detail-img">
     </div>
-    <form action="">
-      {{ form_class  }}
-    </form>
+    <div class="more-details">
+      <p><b>Title:</b> {{ project.title}}</p>
+      <p><b>Description:</b> {{ project.description }}</p>
+      <p><b>Published by:</b> {{ project.publisher }}</p>
+      <span><b>Added on:</b> {{ project.created_at  }}  </span>
+    </div>
+
+    <div class="ratings-sec text-center" id="ratingForm">
+      <form action="{% url 'rate_post' project.pk %}" method="POST" id="ratingForm">
+        {% csrf_token %}
+        <input type="hidden" name="project" value="{{project.pk}}">
+        <input type="hidden" name="user" value="{{request.user.id}}">
+        <select class="custom-select" name="design">
+          <option selected>Design</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+  
+        <select class="custom-select" name="content">
+          <option selected>Content</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+
+        <select class="custom-select" name="usability">
+          <option selected>Usability</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <button class="btn btn-outline-info rate-btn" type="submit" id="rateBtn">Rate</button>
+      </form>
+    </div>
+    <div class="proj-sub">
+      <button class="btn btn-sm btn-info rate-vote-btn" id="voteBtn">Vote</button>
+    </div>
   </div>
+  <div class="card container votes-card">
+    <h1>Votes</h1>
+    {% for vote in project.rating_set.all %}
+    <ul>
+      <li>
+        <div class="row">
+          <div class="results col-md-2">
+            <div class="pub-info">
+              <img src="{{ user.profile.prof_pic.url }}" alt="" class="rounded-circle" height="25" width="25">
+              <p class="ml-2">{{vote.user}}</p>
+            </div>
+            <div class="col-md-8"></div>
+            <div class="criteria col-md-2">
+              <h6 class="design">{{vote.design}}</h6>
+              <h6 class="content">{{vote.content}}</h6>
+              <h6 class="usability"> {{vote.usability}}</h6> 
+            </div>
+          </div>
+        </div>
+   
+      </li>
+    </ul>
+    {% endfor %}
+  </div>
+
 </div>
 {% endblock %}
+
+
+
+
+

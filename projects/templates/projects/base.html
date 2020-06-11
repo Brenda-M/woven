@@ -9,6 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap" rel="stylesheet"> 
   {% if title %}
   <title>{{title}} . Inspire</title>
   {% else %}
@@ -37,7 +39,13 @@
 
   {% block content %}
   <main>
-    <h4>Site of the Day</h4>
+    <div class="header-content">
+      <h4 class="header-title pl-5 pt-3">Site of the Day: <span class="day ml-2"></span> </h4>
+      <div class="header-btn">
+        <a href="#" class="links">Visit</a>
+        <a href="#" class="links">Collect</a>
+      </div>
+    </div>
   </main>
 
   {% endblock %}
@@ -45,8 +53,11 @@
 
   {% block scripts %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="../../../static/js/main.js"></script>
   {% bootstrap_javascript %}
   {% endblock %}
 </body>
 
 </html>
+
+
