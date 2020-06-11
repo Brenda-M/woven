@@ -54,26 +54,23 @@ class RatingsList(APIView):
   def get(self, request, pk, format=None):
     project = get_object_or_404(Project, pk=pk)
     project_ratings = project.rating_set.all()
-    design_criteria = []
-    usability_criteria = []
-    content_criteria = []
+
+    design_criteria = 0
+    usability_criteria = 0
+    content_criteria = 0
+    vote_average = 0
+    final_vote = 0
     
-    average = 0
     for vote in project_ratings:
-      design_criteria.append(vote.design)
-      usability_criteria.append(vote.usability)
-      content_criteria.append(vote.content)
-
+      design_criteria += vote.design
+      usability_criteria += vote.usability
+      content_criteria += vote.content
     
-    print(sum)
-    # proj_average = []
-    # for rating in project_ratings:
-    #   proj_average.append(rating.average)
-    #   final_vote = mean(proj_average)
-    # result = round(final_vote, 2)
+    vote_average = (design_criteria + usability_criteria + content_criteria)/3
+    final_vote = round(vote_average, 1)
 
-    serializers = RatingSerializer(project_ratings, many=True)
-    return Response(serializers.data)
+    # serializers = RatingSerializer(project_ratings, many=True)
+    return Response(final_vote)
   
   def post(self, request, pk, format=None):
     serializers = RatingSerializer(data=request.data)

@@ -85,13 +85,15 @@
             </div>
           </div>
         </div>
-   
       </li>
     </ul>
     {% endfor %}
   </div>
-
 </div>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+    <script src="../../../static/js/details.js"></script>  
 {% endblock %}
 
 
