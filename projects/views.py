@@ -9,6 +9,7 @@ from django.views.generic import ListView, DetailView, CreateView
 from .models import Project, Rating
 from .forms import CreateNewForm
 from .permissions import IsAdminorReadOnly
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class PostListView(ListView):
 
@@ -17,13 +18,13 @@ class PostListView(ListView):
   context_object_name = 'projects'
   ordering = ['-id']
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
   model = Project
   template_name = 'projects/post_detail.html'
   context_object_name = 'project'
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
   model = Project
   form_class = CreateNewForm
   template_name = 'projects/new_post.html'
