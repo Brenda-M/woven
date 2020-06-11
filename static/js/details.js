@@ -34,16 +34,16 @@ $(document).ready(function(){
       });
   });
 
-    $("#ratingForm").hide();
+    // $("#ratingForm").hide();
   
-    $("#voteBtn").click(function () {
-      $("#voteBtn").hide();
-      $("#ratingForm").show();
-    });
+    // $("#voteBtn").click(function () {
+    //   $("#voteBtn").hide();
+    //   $("#ratingForm").show();
+    // });
 
-    $("#rateBtn").click(function () {
-        $("#ratingForm").hide();
-        $("#voteBtn").show();
-      });
+    // $("#rateBtn").click(function () {
+    //     $("#ratingForm").hide();
+    //     $("#voteBtn").show();
+    //   });
 
 });

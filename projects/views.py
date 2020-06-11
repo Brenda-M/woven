@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404, redirect
 from django.http import HttpResponse
 from django.db.models import Q
 from rest_framework import status
@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Project, Rating
-from .forms import CreateNewForm
+from .forms import CreateNewForm,RatingForm
 from .permissions import IsAdminorReadOnly
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -20,9 +20,9 @@ class PostListView(ListView):
 
 class PostDetailView(LoginRequiredMixin, DetailView):
   model = Project
+  form_class = RatingForm
   template_name = 'projects/post_detail.html'
   context_object_name = 'project'
-
 
 class PostCreateView(LoginRequiredMixin, CreateView):
   model = Project
@@ -49,41 +49,6 @@ class ProjectList(APIView):
 
   permission_classes = (IsAdminorReadOnly,)
 
-class RatingsList(APIView):
-  
-  def get(self, request, pk, format=None):
-    project = get_object_or_404(Project, pk=pk)
-    project_ratings = project.rating_set.all()
-
-    design_criteria = 0
-    usability_criteria = 0
-    content_criteria = 0
-    usability = 0
-    design = 0
-    content = 0
-
-    for vote in project_ratings:
-      design_criteria += vote.design
-      usability_criteria += vote.usability
-      content_criteria += vote.content
-    
-    usability = rount((usability_criteria/3), 1)
-    design = rount((design_criteria/3), 1)
-    content = rount((content_criteria/3), 1)
-    
-    # vote_average = (design_criteria + usability_criteria + content_criteria)/3
-    # final_vote = round(vote_average, 1)
-
-    # serializers = RatingSerializer(project_ratings, many=True)
-    return Response({ usability, design, content})
-  
-  def post(self, request, pk, format=None):
-    serializers = RatingSerializer(data=request.data)
-    if serializers.is_valid():
-      serializers.save()
-      return Response(serializers.data, status=status.HTTP_201_CREATED)
-    return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-
 def search(request):
   template = 'projects/search.html'
   query = request.GET.get('q') 
@@ -94,6 +59,22 @@ def search(request):
   }
   return render(request, template, context)
 
+def rate_project(request, pk):
+  
+  if request.method == 'POST':
+    form = RatingForm(request.POST)
+    if form.is_valid():
+      rating = form.save(commit=False)
+      rating.user = request.user
+      rating.project = project
+      rating.average = rating.user_average_rating()
+      rating.save()
+      return redirect('post-detail', pk = project.id)
+  else:
+    form = RatingForm()
+
+  context = {'project':project,'form':form}
+  return render(request,'projects/rating.html',context)
 
   
 

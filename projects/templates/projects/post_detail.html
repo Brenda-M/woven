@@ -1,102 +1,56 @@
 {% extends 'projects/base.html'%}
+{% load bootstrap4 %}
 
 {% block content %}
 <div class="container">
   <div class="details">
-    <div class="proj-img text-center">
-      <img src="{{ project.image.url }}" alt="" width="730" height="420" class="img-fluid detail-img">
-    </div>
-    <div class="more-details">
-      <p><b>Title:</b> {{ project.title}}</p>
-      <p><b>Description:</b> {{ project.description }}</p>
-      <p><b>Published by:</b> {{ project.publisher }}</p>
-      <span><b>Added on:</b> {{ project.created_at  }}  </span>
+    <div class="row">
+      <div class="col-md-7">
+        <img src="{{ project.image.url }}" alt="" width="730" height="420" class="img-fluid detail-img">
+        <p><b>Title:</b> {{ project.title}}</p>
+        <p><b>Description:</b> {{ project.description }}</p>
+        <p><b>Published by:</b> {{ project.publisher }}</p>
+        <span><b>Added on:</b> {{ project.created_at  }} </span>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-3">
+        <a href="{% url 'rate-project' project.id%}" class="btn btn-sm btn-outline-danger pl-2 mr-5">Rate</a>
+        <a href="{{project.link}}" class="btn btn-sm btn-outline-success">Visit Site</a>
+      </div>
     </div>
 
-    <div class="ratings-sec text-center" id="ratingForm">
-      <form action="{% url 'rate_post' project.pk %}" method="POST" id="ratingForm">
-        {% csrf_token %}
-        <input type="hidden" name="project" value="{{project.pk}}">
-        <input type="hidden" name="user" value="{{request.user.id}}">
-        <select class="custom-select" name="design">
-          <option selected>Design</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-  
-        <select class="custom-select" name="content">
-          <option selected>Content</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-
-        <select class="custom-select" name="usability">
-          <option selected>Usability</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-        <button class="btn btn-outline-info rate-btn" type="submit" id="rateBtn">Rate</button>
-      </form>
-    </div>
-    <div class="proj-sub">
-      <button class="btn btn-sm btn-info rate-vote-btn" id="voteBtn">Vote</button>
-    </div>
-  </div>
-  <div class="card container votes-card">
-    <h1>Votes</h1>
-    {% for vote in project.rating_set.all %}
-    <ul>
-      <li>
-        <div class="row">
-          <div class="results col-md-2">
-            <div class="pub-info">
+    <hr>
+    <div class="rating-section text-center">
+      <h1>Votes</h1>
+      {% if project.rating_set.all.count > 0 %}
+      {% for vote in project.rating_set.all %}
+      <ul>
+        <li>
+          <div class="row">
+            <div class="col-md-4">
               <img src="{{ user.profile.prof_pic.url }}" alt="" class="rounded-circle" height="25" width="25">
-              <p class="ml-2">{{vote.user}}</p>
+              <p class="ml-2"><b>{{vote.user}}</b></p>
             </div>
-            <div class="col-md-8"></div>
-            <div class="criteria col-md-2">
-              <h6 class="design">{{vote.design}}</h6>
-              <h6 class="content">{{vote.content}}</h6>
-              <h6 class="usability"> {{vote.usability}}</h6> 
+            <div class="col-md-6" style="display: flex; justify-content:center; flex-direction:row;">
+              <h6 class="design ml-3"><b>Design:</b>  {{vote.design}}</h6>
+              <h6 class="content ml-3"><b>Content:</b> {{vote.content}}</h6>
+              <h6 class="usability ml-3"><b>Usability:</b> {{vote.usability}}</h6>
+              <h6 class="usability ml-3"><b>Voter Average:</b> {{vote.average}}</h6>
             </div>
           </div>
-        </div>
-      </li>
-    </ul>
-    {% endfor %}
+
+        </li>
+      </ul>
+      {% endfor %}
+      {% else %}
+      <h4 class="mt-4">This post has not been rated yet</h4>
+      {% endif %}
+
+    </div>
   </div>
 </div>
 {% endblock %}
 {% block scripts %}
-    {{block.super}}
-    <script src="../../../static/js/details.js"></script>  
+{{block.super}}
+<script src="../../../static/js/details.js"></script>
 {% endblock %}
-
-
-
-
-

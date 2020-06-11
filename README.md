@@ -11,12 +11,11 @@ Inspire is an application that provides users with a platform whereby they can s
 <ul>
 <li>A user can view posted projects and their details</li>
 <li>Post a project to be rated</li>
+<li>Rate Projects</li>
 <li>Search for projects</li>
 <li>View a projects overall score</li>
 <li>A user can view their profile page</li>
-
 </ul>
-
 
 ## Prerequisites
 
@@ -93,7 +92,6 @@ Run the application
 
 <li>api/v1/projects/</li>
 <li>api/v1/users/</li>
-<li>api/v1/projects/<int:pk>/ratings/</li>
 
 ## Live Link
 

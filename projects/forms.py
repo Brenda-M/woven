@@ -6,3 +6,9 @@ class CreateNewForm(forms.ModelForm):
     model = Project
     fields = ['image', 'title', 'link', 'description','country', 'tag']
 
+class RatingForm(forms.ModelForm):
+  class Meta:
+    model = Rating
+    fields = ['usability', 'design', 'content']
+
+

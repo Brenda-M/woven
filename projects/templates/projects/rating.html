@@ -2,12 +2,11 @@
 {% load bootstrap4 %}
 {%  block content %}
 <div class="new-post">
-  <h1>Add Post</h1>
-  <form action="" method="POST" enctype="multipart/form-data">
+  <h1>Rate Site</h1>
+  <form action="{%url 'rate-project'  project.id %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form form layout='inline' %}
-    <input type="submit" value="Submit Project" class="newpost-btn">
+    <input type="submit" value="Rate" class="newpost-btn">
   </form>
 </div>
-
 {% endblock %}
