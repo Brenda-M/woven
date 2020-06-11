@@ -90,10 +90,12 @@ Run the application
   `python manage.py server`
 
 ## Endpoints
+   <ul>
+  <li>api/v1/projects/</li>
+  <li>api/v1/users/</li>
+  <li>api/v1/projects/<int:pk>/ratings</li>
+  </ul>
 
-<li>api/v1/projects/</li>
-<li>api/v1/users/</li>
-<li>api/v1/projects/<int:pk>/ratings/</li>
 
 ## Live Link
 
