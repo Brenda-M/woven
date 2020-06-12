@@ -23,11 +23,6 @@ main{
   height:500px;
 }
 
-.header-content{
-  /* position: absolute;
-  top:50px; */
-}
-
 .header-btn{
   position: absolute;
   top: 85%;
