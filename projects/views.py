@@ -24,6 +24,12 @@ class PostDetailView(LoginRequiredMixin, DetailView):
   template_name = 'projects/post_detail.html'
   context_object_name = 'project'
 
+  def get_context_data(self, **kwargs):
+    context = super(PostDetailView, self).get_context_data(**kwargs)
+    context['rating'] = Rating.criteria_average(self, pk=self.object.pk)
+    print(context)
+    return context
+
 class PostCreateView(LoginRequiredMixin, CreateView):
   model = Project
   form_class = CreateNewForm

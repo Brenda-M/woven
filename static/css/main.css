@@ -316,4 +316,11 @@ main{
   justify-content: space-between;
 }
 
+.values{
+  display: flex; 
+  flex-direction:row; 
+  justify-content:space-between;
+  margin-top:20px;
+  text-align: center;
+}
 

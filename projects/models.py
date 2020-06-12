@@ -54,8 +54,10 @@ class Rating(models.Model):
   def user_average_rating(self):
     average = (self.design + self.content + self.usability)/3
     return average
-
+  
+  def criteria_average(self, pk):
     all_votes = Rating.objects.filter(project=pk)
+
     usability = []
     design = []
     content = []
