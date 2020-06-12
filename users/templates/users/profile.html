@@ -23,23 +23,14 @@
       </div>
     </div>
     <div class="col-md-4">
-      <!-- <div class="profile-update-form">
-        <form action="" method="POST" enctype="multipart/form-data">
-          <h1>Update Profile</h1>
-            {% csrf_token %}
-            {% bootstrap_form u_form layout='inline' %} 
-            {% bootstrap_form p_form layout='inline' %} 
-            <input type="submit" value="Update" class="profile-update-btn">
-        </form>
-      </div>   
-    </div> -->
-    <div class="signup-form">
+
+    <div class="profile-update-form">
       <h1>Update Info</h1>
       <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form u_form layout='inline' %}
         {% bootstrap_form p_form layout='inline' %}
-        <input type="submit" value="Sign Up" class="signup-btn">
+        <input type="submit" value="profile-update-btn" class="newpost-btn">
       </form>
     </div>
   </div>

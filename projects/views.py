@@ -60,6 +60,7 @@ def search(request):
   return render(request, template, context)
 
 def rate_project(request, pk):
+  project = Project.get_project(pk)
   
   if request.method == 'POST':
     form = RatingForm(request.POST)
